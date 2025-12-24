@@ -1,0 +1,19 @@
+# Основные
+torch
+torchvision
+ultralytics
+
+# Для данных
+roboflow
+opencv-python
+pillow
+numpy
+
+# Для визуализации
+matplotlib
+seaborn
+pandas
+
+# Утилиты
+tqdm
+pyyaml

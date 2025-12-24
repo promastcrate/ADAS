@@ -1,0 +1,13 @@
+names:
+- car
+- person
+- bus
+- truck
+- bike
+- ego_vehicle
+- racetrack
+- obstacle
+nc: 8
+path: C:\Users\sande\Downloads\ADAS\finetune_dataset
+train: train/images
+val: valid/images

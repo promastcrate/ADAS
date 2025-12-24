@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-12-21T13:20:04.096357",
+  "image": "C:\\Users\\sande\\Downloads\\ADAS\\api\\static\\uploads\\f6cdbc69-8c7b-449b-84ce-a384bf7ca719.jpg",
+  "detection_count": 2,
+  "processing_time_ms": 70.91403007507324,
+  "result_image": "/static/results/result_7f521575.jpg",
+  "detections": [
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.4116895794868469,
+      "bbox": [
+        260.072021484375,
+        439.174560546875,
+        404.9693298339844,
+        486.548828125
+      ]
+    },
+    {
+      "class": "vertical_parking_free",
+      "class_name": "vertical_parking_free",
+      "confidence": 0.30744776129722595,
+      "bbox": [
+        12.521032333374023,
+        499.6853332519531,
+        203.8878631591797,
+        526.5841064453125
+      ]
+    }
+  ]
+}

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADAS - Автономное вождение (COCO модель)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            display: flex;
+            min-height: 500px;
+        }
+
+        .upload-section {
+            flex: 1;
+            padding: 40px;
+            border-right: 1px solid #eee;
+        }
+
+        .result-section {
+            flex: 1;
+            padding: 40px;
+            background: #f8f9fa;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .upload-area {
+            border: 3px dashed #4CAF50;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            background: #f1f8e9;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .upload-label {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+
+        .upload-label:hover {
+            background: #45a049;
+        }
+
+        button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0b7dda;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .detection-item {
+            background: #e3f2fd;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 4px solid #2196F3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .detection-item.high-confidence {
+            border-left-color: #4CAF50;
+            background: #f1f8e9;
+        }
+
+        .detection-item.medium-confidence {
+            border-left-color: #FF9800;
+            background: #FFF3E0;
+        }
+
+        .detection-item.low-confidence {
+            border-left-color: #F44336;
+            background: #FFEBEE;
+        }
+
+        .class-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .car { background: #2196F3; color: white; }
+        .person { background: #4CAF50; color: white; }
+        .truck { background: #FF9800; color: black; }
+        .bus { background: #9C27B0; color: white; }
+        .traffic_light { background: #F44336; color: white; }
+        .stop_sign { background: #795548; color: white; }
+
+        .confidence-badge {
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .confidence-high { background: #4CAF50; color: white; }
+        .confidence-medium { background: #FF9800; color: black; }
+        .confidence-low { background: #F44336; color: white; }
+
+        .progress-bar {
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .error-box {
+            background: #FFEBEE;
+            color: #C62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #F44336;
+            display: none;
+        }
+
+        .success-box {
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .model-info {
+            background: #E8F5E9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .result-image-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .result-image-container img {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .detection-count {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(33, 150, 243, 0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 ADAS - Система автономного вождения</h1>
+            <p>COCO модель | Детекция 80 классов объектов</p>
+            <div style="margin-top: 15px;">
+                <span style="background: #4CAF50; color: white; padding: 5px 10px; border-radius: 15px;">
+                    ✅ Модель работает
+                </span>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Левая часть - загрузка -->
+            <div class="upload-section">
+                <h2>📤 Загрузите изображение</h2>
+                <p>Выберите фото для анализа (машины, люди, светофоры и др.)</p>
+
+                <div class="upload-area" id="dropZone">
+                    <div style="font-size: 50px; margin: 10px;">📁</div>
+                    <p>Перетащите файл сюда</p>
+                    <p><strong>или</strong></p>
+                    <label class="upload-label" for="fileInput">
+                        Выберите файл
+                    </label>
+                    <input type="file" id="fileInput" accept="image/*">
+                    <p style="margin-top: 10px; color: #666; font-size: 14px;">
+                        Поддерживаемые форматы: JPG, PNG, JPEG
+                    </p>
+                </div>
+
+                <div class="image-container" id="previewContainer" style="display: none;">
+                    <h3>Превью изображения</h3>
+                    <img id="previewImage" alt="Предпросмотр">
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 5px;">
+                        <strong>🔢 Уверенность детекции:</strong>
+                        <span id="confidenceValue">0.25</span>
+                    </label>
+                    <input type="range" id="confidenceSlider"
+                           min="0.1" max="0.9" step="0.05" value="0.25"
+                           style="width: 100%; margin: 10px 0;">
+                </div>
+
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <button id="analyzeButton" disabled>
+                    🔍 Анализировать изображение
+                </button>
+
+                <div class="error-box" id="errorBox">
+                    <strong>Ошибка:</strong> <span id="errorText"></span>
+                </div>
+
+                <div class="success-box" id="successBox" style="display: none;">
+                    <strong>Успешно!</strong> <span id="successText"></span>
+                </div>
+            </div>
+
+            <!-- Правая часть - результаты -->
+            <div class="result-section">
+                <h2>📊 Результаты анализа</h2>
+                <div id="resultsContainer">
+                    <div id="initialMessage">
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            <div style="font-size: 50px; margin-bottom: 20px;">🎯</div>
+                            <p>Загрузите изображение и нажмите "Анализировать"</p>
+                            <p>Здесь появятся результаты детекции</p>
+                            <p style="margin-top: 20px; font-size: 12px;">
+                                Модель COCO определяет 80 классов объектов
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="resultContent" style="display: none;">
+                        <h3>Обработанное изображение</h3>
+                        <div class="result-image-container">
+                            <img id="resultImage" alt="Результат детекции">
+                            <div class="detection-count" id="detectionCountBadge">0 объектов</div>
+                        </div>
+
+                        <h3 style="margin-top: 20px;">🎯 Обнаружено объектов: <span id="detectionCount">0</span></h3>
+                        <div id="detectionsList" style="margin-top: 15px;"></div>
+
+                        <div style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 8px;">
+                            <h4>📈 Статистика анализа:</h4>
+                            <p>Время обработки: <span id="processingTime">0</span> мс</p>
+                            <p>Дата анализа: <span id="analysisDate">-</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Элементы DOM
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const previewImage = document.getElementById('previewImage');
+        const previewContainer = document.getElementById('previewContainer');
+        const analyzeButton = document.getElementById('analyzeButton');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const resultImage = document.getElementById('resultImage');
+        const resultContent = document.getElementById('resultContent');
+        const initialMessage = document.getElementById('initialMessage');
+        const detectionsList = document.getElementById('detectionsList');
+        const detectionCount = document.getElementById('detectionCount');
+        const detectionCountBadge = document.getElementById('detectionCountBadge');
+        const processingTime = document.getElementById('processingTime');
+        const analysisDate = document.getElementById('analysisDate');
+        const errorBox = document.getElementById('errorBox');
+        const errorText = document.getElementById('errorText');
+        const successBox = document.getElementById('successBox');
+        const successText = document.getElementById('successText');
+        const confidenceSlider = document.getElementById('confidenceSlider');
+        const confidenceValue = document.getElementById('confidenceValue');
+
+        let selectedFile = null;
+        let progressInterval = null;
+
+        // Настройка слайдера confidence
+        confidenceSlider.addEventListener('input', function() {
+            confidenceValue.textContent = this.value;
+        });
+
+        // Drag and Drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.background = '#f1f8e9';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.background = '';
+            if (e.dataTransfer.files.length) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            hideMessages();
+
+            if (!file.type.match('image.*')) {
+                showError('Пожалуйста, выберите изображение (JPG, PNG, JPEG)');
+                return;
+            }
+
+            selectedFile = file;
+            analyzeButton.disabled = false;
+
+            // Показываем превью
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewContainer.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function getBadgeClass(className) {
+            const normalized = String(className).toLowerCase().replace(/ /g, '_');
+            
+            if (normalized.includes('car')) return 'car';
+            if (normalized.includes('person')) return 'person';
+            if (normalized.includes('truck')) return 'truck';
+            if (normalized.includes('bus')) return 'bus';
+            if (normalized.includes('traffic_light') || normalized.includes('trafficlight')) return 'traffic_light';
+            if (normalized.includes('stop_sign')) return 'stop_sign';
+            return 'car';
+        }
+
+        function getConfidenceClass(conf) {
+            if (conf >= 0.7) return { cls: 'high-confidence', badge: 'confidence-high' };
+            if (conf >= 0.4) return { cls: 'medium-confidence', badge: 'confidence-medium' };
+            return { cls: 'low-confidence', badge: 'confidence-low' };
+        }
+
+        function showError(message) {
+            errorText.textContent = message;
+            errorBox.style.display = 'block';
+            successBox.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            successText.textContent = message;
+            successBox.style.display = 'block';
+            errorBox.style.display = 'none';
+        }
+
+        function hideMessages() {
+            errorBox.style.display = 'none';
+            successBox.style.display = 'none';
+        }
+
+        async function analyzeImage() {
+            hideMessages();
+
+            if (!selectedFile) {
+                showError('Сначала выберите изображение.');
+                return;
+            }
+
+            analyzeButton.disabled = true;
+            progressBar.style.display = 'block';
+            progressFill.style.width = '5%';
+
+            // Анимация прогресса
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                const current = parseFloat(progressFill.style.width);
+                if (current < 80) {
+                    progressFill.style.width = (current + Math.random() * 10) + '%';
+                }
+            }, 200);
+
+            try {
+                const formData = new FormData();
+                formData.append('file', selectedFile);
+                formData.append('confidence', confidenceSlider.value);
+
+                const response = await fetch('/api/direct-predict/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                clearInterval(progressInterval);
+                progressFill.style.width = '100%';
+
+                // Даем анимации завершиться
+                await new Promise(r => setTimeout(r, 300));
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (!data || data.success === false) {
+                    showError(data?.error || 'Ошибка анализа изображения');
+                    progressBar.style.display = 'none';
+                    analyzeButton.disabled = false;
+                    return;
+                }
+
+                // Показываем результат
+                initialMessage.style.display = 'none';
+                resultContent.style.display = 'block';
+
+                // Обновляем данные
+                detectionCount.textContent = data.count;
+                detectionCountBadge.textContent = data.count + ' объектов';
+                processingTime.textContent = data.processing_time_ms;
+                analysisDate.textContent = new Date(data.timestamp).toLocaleString();
+
+                // Показываем изображение с результатами
+                if (data.result_image) {
+                    resultImage.src = data.result_image;
+                    resultImage.style.display = 'block';
+                }
+
+                // Отображаем список детекций
+                detectionsList.innerHTML = '';
+                
+                if (data.detections && data.detections.length > 0) {
+                    data.detections.forEach((det, index) => {
+                        const cls = det.class;
+                        const conf = det.confidence;
+                        const confPercent = (conf * 100).toFixed(1) + '%';
+                        
+                        const badgeClass = getBadgeClass(cls);
+                        const confInfo = getConfidenceClass(conf);
+
+                        const detectionItem = document.createElement('div');
+                        detectionItem.className = `detection-item ${confInfo.cls}`;
+                        
+                        detectionItem.innerHTML = `
+                            <div>
+                                <span class="class-badge ${badgeClass}">${cls}</span>
+                                <span style="margin-left: 10px;">Уверенность: ${confPercent}</span>
+                            </div>
+                            <span class="confidence-badge ${confInfo.badge}">${confPercent}</span>
+                        `;
+                        
+                        detectionsList.appendChild(detectionItem);
+                    });
+                } else {
+                    detectionsList.innerHTML = '<p style="color: #666; text-align: center;">Объекты не обнаружены</p>';
+                }
+
+                showSuccess(`Анализ завершен! Найдено ${data.count} объектов`);
+                progressBar.style.display = 'none';
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                showError('Ошибка при анализе изображения: ' + error.message);
+                progressBar.style.display = 'none';
+            } finally {
+                analyzeButton.disabled = false;
+                clearInterval(progressInterval);
+                setTimeout(() => {
+                    progressFill.style.width = '0%';
+                }, 500);
+            }
+        }
+
+        // Привязка обработчика к кнопке
+        analyzeButton.addEventListener('click', analyzeImage);
+
+        // Инициализация
+        console.log('ADAS система загружена');
+        console.log('Модель: COCO (80 классов)');
+    </script>
+</body>
+</html>

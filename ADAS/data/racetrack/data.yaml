@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 18
+names: ['car', 'cross_parking_free', 'cross_parking_occupied', 'ego_vehicle', 'finish_line', 'obstacle', 'person', 'pitlane', 'pitlane_entry', 'pitlane_exit', 'racetrack', 'trafficlight_green', 'trafficlight_off', 'trafficlight_red', 'trafficlight_yellow', 'trafficlight_yellow_red', 'vertical_parking_free', 'vertical_parking_occupied']
+
+roboflow:
+  workspace: space-ocpro
+  project: racetrack-z4ddd
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/space-ocpro/racetrack-z4ddd/dataset/1

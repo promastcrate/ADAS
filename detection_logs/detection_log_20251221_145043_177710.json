@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-12-21T14:50:43.177710",
+  "image_path_original": "C:\\Users\\sande\\Downloads\\ADAS\\api\\static\\uploads\\a1a30149-db24-4ce5-88c9-f6c3a79e27b6.jpeg",
+  "detections_count": 2,
+  "processing_time_ms": 652.76,
+  "result_image_url": "/static/results/result_f3cbfd0e.jpg",
+  "detections_list": [
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.6622,
+      "bbox": [
+        314.59,
+        399.48,
+        356.28,
+        422.51
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.4888,
+      "bbox": [
+        398.47,
+        411.78,
+        504.53,
+        451.07
+      ]
+    }
+  ]
+}

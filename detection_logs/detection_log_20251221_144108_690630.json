@@ -1,0 +1,152 @@
+{
+  "timestamp": "2025-12-21T14:41:08.690630",
+  "image_path_original": "C:\\Users\\sande\\Downloads\\ADAS\\api\\static\\uploads\\469ce9d6-5578-42c0-825a-f5797684dfb8.jpg",
+  "detections_count": 13,
+  "processing_time_ms": 53.39,
+  "result_image_url": "/static/results/result_1a8a1728.jpg",
+  "detections_list": [
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.8704,
+      "bbox": [
+        259.38,
+        439.24,
+        406.75,
+        488.3
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.8286,
+      "bbox": [
+        811.67,
+        553.35,
+        970.02,
+        682.53
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.8067,
+      "bbox": [
+        579.12,
+        493.06,
+        672.61,
+        572.4
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.7872,
+      "bbox": [
+        554.08,
+        597.19,
+        708.46,
+        749.32
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.7745,
+      "bbox": [
+        1010.61,
+        487.5,
+        1113.03,
+        570.33
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.6573,
+      "bbox": [
+        761.38,
+        499.25,
+        876.55,
+        589.78
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.6426,
+      "bbox": [
+        0.34,
+        409.45,
+        46.29,
+        444.6
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.5602,
+      "bbox": [
+        819.87,
+        429.76,
+        872.29,
+        479.0
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.5524,
+      "bbox": [
+        988.93,
+        457.45,
+        1070.21,
+        514.79
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.5058,
+      "bbox": [
+        720.26,
+        440.3,
+        790.02,
+        493.97
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.3807,
+      "bbox": [
+        597.45,
+        394.76,
+        637.74,
+        423.14
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.3632,
+      "bbox": [
+        918.52,
+        420.7,
+        984.14,
+        484.23
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.3264,
+      "bbox": [
+        930.88,
+        361.18,
+        957.9,
+        387.0
+      ]
+    }
+  ]
+}

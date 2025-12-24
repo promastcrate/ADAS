@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-12-21T14:40:04.068171",
+  "image_path_original": "C:\\Users\\sande\\Downloads\\ADAS\\api\\static\\uploads\\cc71a5cb-0700-4992-9c5b-f7e6d3615002.jpeg",
+  "detections_count": 5,
+  "processing_time_ms": 48.17,
+  "result_image_url": "/static/results/result_9620e5af.jpg",
+  "detections_list": [
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.7857,
+      "bbox": [
+        399.69,
+        411.36,
+        505.81,
+        450.97
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.7834,
+      "bbox": [
+        314.86,
+        399.87,
+        355.46,
+        423.77
+      ]
+    },
+    {
+      "class": "traffic light",
+      "class_name": "traffic light",
+      "confidence": 0.4529,
+      "bbox": [
+        268.93,
+        312.95,
+        288.12,
+        338.86
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.4284,
+      "bbox": [
+        620.12,
+        431.26,
+        639.4,
+        452.9
+      ]
+    },
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.387,
+      "bbox": [
+        662.14,
+        421.62,
+        711.08,
+        436.17
+      ]
+    }
+  ]
+}

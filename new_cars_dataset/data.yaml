@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 10
+names: ['TL_G', 'TL_R', 'barrier', 'bike', 'bus', 'car', 'person', 'rider', 'sign', 'truck']
+
+roboflow:
+  workspace: space-ocpro
+  project: adas-kyk9n-elle4
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/space-ocpro/adas-kyk9n-elle4/dataset/1

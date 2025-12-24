@@ -1,0 +1,26 @@
+
+ИНФОРМАЦИЯ О МОДЕЛИ
+===================
+Путь: ADAS\runs\detect\yolov8s_safe_training\weights\best.pt
+Дата создания: 1765711846.356098
+Размер: 22.5 MB
+
+КЛАССЫ (18):
+0: car
+1: cross_parking_free
+2: cross_parking_occupied
+3: ego_vehicle
+4: finish_line
+5: obstacle
+6: person
+7: pitlane
+8: pitlane_entry
+9: pitlane_exit
+10: racetrack
+11: trafficlight_green
+12: trafficlight_off
+13: trafficlight_red
+14: trafficlight_yellow
+15: trafficlight_yellow_red
+16: vertical_parking_free
+17: vertical_parking_occupied

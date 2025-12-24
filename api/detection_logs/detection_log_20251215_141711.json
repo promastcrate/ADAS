@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-12-15T14:17:11.360798",
+  "image": "C:\\Users\\sande\\Downloads\\ADAS\\api\\static\\uploads\\e9c943ad-3180-4eb6-9453-570683448c4c.jpeg",
+  "detection_count": 1,
+  "processing_time_ms": 428.64012718200684,
+  "result_image": "/static/results/result_68f7a568.jpg",
+  "detections": [
+    {
+      "class": "car",
+      "class_name": "car",
+      "confidence": 0.39665183424949646,
+      "bbox": [
+        315.08355712890625,
+        399.0791931152344,
+        355.33154296875,
+        420.7674865722656
+      ]
+    }
+  ]
+}

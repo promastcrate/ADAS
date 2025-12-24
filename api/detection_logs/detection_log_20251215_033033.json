@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-12-15T03:30:33.493845",
+  "image": "C:\\Users\\sande\\Downloads\\ADAS\\api\\static\\uploads\\ccaff0ec-55ec-4d32-913a-72a1b21ab6e8.jpg",
+  "detection_count": 5,
+  "processing_time_ms": 399.4286060333252,
+  "result_image": "/static/results/result_1fe9f9e5.jpg",
+  "detections": [
+    {
+      "class": "racetrack",
+      "class_name": "racetrack",
+      "confidence": 0.9097045660018921,
+      "bbox": [
+        2.80877685546875,
+        371.67108154296875,
+        359.83636474609375,
+        544.754150390625
+      ]
+    },
+    {
+      "class": "racetrack",
+      "class_name": "racetrack",
+      "confidence": 0.5605942606925964,
+      "bbox": [
+        4.04736328125,
+        541.46728515625,
+        463.94482421875,
+        617.076904296875
+      ]
+    },
+    {
+      "class": "racetrack",
+      "class_name": "racetrack",
+      "confidence": 0.4151940643787384,
+      "bbox": [
+        114.53485107421875,
+        540.3179931640625,
+        628.185791015625,
+        624.2166748046875
+      ]
+    },
+    {
+      "class": "ego_vehicle",
+      "class_name": "ego_vehicle",
+      "confidence": 0.38943302631378174,
+      "bbox": [
+        61.96380615234375,
+        586.2685546875,
+        612.2347412109375,
+        640.0
+      ]
+    },
+    {
+      "class": "ego_vehicle",
+      "class_name": "ego_vehicle",
+      "confidence": 0.3302813172340393,
+      "bbox": [
+        33.663818359375,
+        558.2694091796875,
+        626.901123046875,
+        640.0
+      ]
+    }
+  ]
+}
